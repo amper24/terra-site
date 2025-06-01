@@ -1,0 +1,1435 @@
+:root {
+  /* Основные пурпурные оттенки */
+  --primary: #9c4dff;       /* Яркий пурпурно-фиолетовый */
+  --primary-dark: #6a2fc1;  /* Темный пурпурный */
+  --primary-light: #c17dff; /* Светлый пурпурный */
+  
+  /* Акцентные цвета (из вашей палитры) */
+  --secondary: #4889bb;     /* Синий как акцент */
+  --secondary-dark: #2e6187;
+  
+  /* Фоновые цвета */
+  --dark: #12081a;         /* Темный пурпурно-черный */
+  --darker: #0a0511;       /* Еще более темный фон */
+  
+  /* Текст и нейтральные цвета */
+  --light: #ffffff;
+  --light-purple: #e6d5ff; /* Светлый пурпурный для текста */
+  --gray: #3d3d3d;
+  --light-gray: #b8b8b8;
+  
+  /* Градиенты */
+  --gradient-purple: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  --gradient-accent: linear-gradient(90deg, var(--primary), var(--secondary));
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: var(--dark);
+  color: var(--light);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Новый Header */
+.main-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background: rgba(18, 8, 26, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(156, 77, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.main-nav.scrolled {
+  background: rgba(10, 5, 17, 0.98);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+}
+
+.nav-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0;
+}
+
+.nav-logo {
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--light);
+}
+
+.nav-logo .minecraft-text {
+  font-size: 1.8rem;
+  background: var(--gradient-purple);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 15px rgba(156, 77, 255, 0.3);
+}
+
+.nav-menu {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-link {
+  color: var(--light);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  padding: 0.5rem 0;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--gradient-purple);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--primary-light);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.nav-buttons {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.btn-sm {
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+}
+
+.mobile-menu-btn {
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.mobile-menu-btn span {
+  display: block;
+  width: 25px;
+  height: 2px;
+  background: var(--light);
+  transition: all 0.3s ease;
+}
+
+@media (max-width: 992px) {
+  .nav-menu {
+    display: none;
+    position: fixed;
+    top: 70px; /* Height of the header */
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 70px);
+    background: var(--darker);
+    padding: 2rem;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 999;
+  }
+  
+  .nav-menu.active {
+    display: flex;
+    transform: translateX(0);
+  }
+  
+  .mobile-menu-btn {
+    display: flex;
+    z-index: 1000;
+  }
+  
+  .mobile-menu-btn.active span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+  
+  .mobile-menu-btn.active span:nth-child(2) {
+    opacity: 0;
+  }
+  
+  .mobile-menu-btn.active span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+  
+  body.menu-open {
+    overflow: hidden;
+  }
+}
+
+/* Текст в стиле Minecraft */
+.minecraft-text {
+  font-family: 'Press Start 2P', cursive;
+  text-transform: uppercase;
+}
+
+.minecraft-text h1 {
+  position: relative;
+  display: inline-block;
+  font-family: 'Orbitron', sans-serif; /* Футуристичный шрифт */
+  color: #b388ff; /* Светло-пурпурный */
+  font-size: 3.5rem;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  text-shadow: 0 0 15px rgba(179, 136, 255, 0.5); /* Свечение */
+  transition: all 0.3s ease;
+}
+
+.minecraft-text h1:hover {
+  text-shadow: 0 0 25px rgba(179, 136, 255, 0.8); /* Усиление свечения при наведении */
+}
+
+.minecraft-text h1::after {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, #b388ff, #7c4dff); /* Градиент пурпурных оттенков */
+  border-radius: 4px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease-out;
+}
+
+.minecraft-text h1:hover::after {
+  transform: scaleX(1); /* Анимация подчеркивания */
+}
+
+/* Подключение шрифта Orbitron */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
+
+/* Кнопки */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  border-radius: 4px;
+  font-weight: 500;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  gap: 8px;
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: var(--light);
+  border: 2px solid var(--primary);
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: var(--light);
+  border: 2px solid var(--light);
+}
+
+.btn-outline:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+}
+
+.btn-large {
+  padding: 16px 32px;
+  font-size: 1rem;
+}
+
+/* Анимации */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(76, 175, 80, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(76, 175, 80, 0);
+  }
+}
+
+@keyframes pulse-slow {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.floating {
+  animation: float 6s ease-in-out infinite;
+}
+
+.pulse {
+  animation: pulse 2s infinite;
+}
+
+.pulse-slow {
+  animation: pulse-slow 4s infinite;
+}
+
+/* Хедер */
+.hero {
+  position: relative;
+  padding: 120px 0;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('resources/minecraft-pattern.png') repeat;
+  opacity: 0.05;
+  z-index: -1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 600px;
+}
+
+.hero-description {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  color: var(--light-gray);
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 2rem;
+}
+
+.hero-image {
+  position: absolute;
+  right: 25%;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  width: 15%;
+  max-width: 600px;
+}
+
+.hero-image img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 0 20px rgba(156, 77, 255, 0.5));
+  transition: transform 0.3s ease;
+}
+
+.server-stats {
+  display: flex;
+  gap: 24px;
+  margin-top: 2rem;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 4px;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: var(--light-gray);
+}
+
+/* Унифицированные стили для всех страниц */
+.page-header {
+  padding: 120px 0 60px;
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  text-align: center;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.page-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('../resources/header-bg.png') center/cover;
+  opacity: 0.1;
+  z-index: 1;
+}
+
+.page-header .container {
+  position: relative;
+  z-index: 2;
+}
+
+.page-header .section-title {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.page-header .section-subtitle {
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin: 0 auto;
+  opacity: 0.9;
+}
+
+/* Общие стили для секций */
+section {
+  padding: 80px 0;
+}
+
+section:nth-child(even) {
+  background-color: var(--bg-light);
+}
+
+.section-title {
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: var(--text-color);
+}
+
+.section-subtitle {
+  font-size: 1.1rem;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 3rem;
+  color: var(--text-secondary);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .page-header {
+    padding: 100px 0 40px;
+  }
+
+  .page-header .section-title {
+    font-size: 2rem;
+  }
+
+  .page-header .section-subtitle {
+    font-size: 1rem;
+  }
+
+  section {
+    padding: 60px 0;
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-header {
+    padding: 80px 0 30px;
+  }
+
+  .page-header .section-title {
+    font-size: 1.8rem;
+  }
+
+  section {
+    padding: 40px 0;
+  }
+
+  .section-title {
+    font-size: 1.8rem;
+  }
+}
+
+/* Особенности */
+.features {
+  background-color: var(--dark);
+}
+
+.quote {
+  font-style: italic;
+  font-size: 1.2rem;
+  color: var(--light-gray);
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 3rem;
+  position: relative;
+  padding: 0 20px;
+}
+
+.quote::before, .quote::after {
+  content: '"';
+  font-size: 2rem;
+  color: var(--primary);
+  opacity: 0.5;
+  position: absolute;
+}
+
+.quote::before {
+  left: -10px;
+  top: -15px;
+}
+
+.quote::after {
+  right: -10px;
+  bottom: -25px;
+}
+
+.quote span {
+  display: block;
+  font-size: 1rem;
+  margin-top: 10px;
+  color: var(--primary);
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-top: 50px;
+}
+
+.feature-card {
+  background: rgba(30, 30, 30, 0.7);
+  background-image: url('../resources/pricing-card-gradient-bg.png');
+  background-size: cover;
+  background-position: center;
+  border-radius: 8px;
+  padding: 30px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(76, 175, 80, 0.1);
+  backdrop-filter: blur(5px);
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  border-color: rgba(76, 175, 80, 0.3);
+}
+
+.feature-icon {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto 20px;
+  background: rgba(76, 175, 80, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  color: var(--primary);
+}
+
+.feature-card h3 {
+  margin-bottom: 15px;
+  font-size: 1.3rem;
+}
+
+.feature-card p {
+  color: var(--light-gray);
+  font-size: 0.95rem;
+}
+
+.features-image {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.features-image img {
+  max-width: 200px;
+  opacity: 0.8;
+}
+
+/* Табы с особенностями сервера */
+.features-tabs {
+  margin-top: 50px;
+}
+
+.tab-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.tab-btn {
+  padding: 12px 24px;
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: var(--light-gray);
+  border: 1px solid var(--gray);
+}
+
+.tab-btn:hover {
+  color: var(--light);
+  background: rgba(76, 175, 80, 0.1);
+}
+
+.tab-btn.active {
+  background: var(--primary);
+  color: var(--light);
+  border-color: var(--primary);
+}
+
+.tab-content {
+  display: none;
+  background: rgba(30, 30, 30, 0.7);
+  border-radius: 8px;
+  padding: 30px;
+  border: 1px solid rgba(76, 175, 80, 0.1);
+  backdrop-filter: blur(5px);
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.tab-content-inner {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.tab-text {
+  flex: 1;
+}
+
+.tab-text h3 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: var(--primary);
+}
+
+.tab-text ul {
+  list-style: none;
+}
+
+.tab-text li {
+  margin-bottom: 10px;
+  position: relative;
+  padding-left: 30px;
+}
+
+.tab-text i {
+  position: absolute;
+  left: 0;
+  top: 4px;
+  color: var(--primary);
+}
+
+.tab-image {
+  flex: 1;
+  text-align: center;
+}
+
+.tab-image img {
+  max-width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+/* Галерея */
+.gallery {
+  background-color: rgba(18, 8, 26, 0.8);
+  padding: 80px 0;
+  position: relative;
+}
+
+.slider-container {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(156, 77, 255, 0.3);
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 600px; /* Фиксированная высота для 16:9 */
+}
+
+.slider-track {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  transition: transform 0.5s ease;
+}
+
+.slide {
+  min-width: 100%;
+  position: relative;
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.slide-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+  padding: 20px;
+  color: white;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.slider-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(156, 77, 255, 0.7);
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+}
+
+.slider-btn:hover {
+  background: #9c4dff;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.prev {
+  left: 20px;
+}
+
+.next {
+  right: 20px;
+}
+
+.gallery-btn {
+  text-align: center;
+  margin-top: 40px;
+}
+
+@media (max-width: 768px) {
+  .slider-container {
+    height: 400px;
+  }
+  
+  .slider-btn {
+    width: 40px;
+    height: 40px;
+    margin: 0 10px;
+  }
+}
+
+/* Цены */
+.pricing-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  margin-top: 50px;
+  align-items: stretch; /* Выравниваем высоту карточек */
+}
+
+.price-card {
+  background: rgba(30, 30, 30, 0.7);
+  background-image: url('../resources/pricing-card-gradient-bg.png');
+  background-size: cover;
+  background-position: center;
+  border-radius: 8px;
+  padding: 30px;
+  text-align: center;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(76, 175, 80, 0.1);
+  backdrop-filter: blur(5px);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Занимаем всю доступную высоту */
+}
+
+.price-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+}
+
+.price-card.popular {
+  border-color: var(--primary);
+}
+
+.popular-badge {
+  position: absolute;
+  top: -15px;
+  right: 20px;
+  background: var(--primary);
+  color: white;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.card-header {
+  margin-bottom: 25px;
+  padding-bottom: 25px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.card-header h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.price {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: var(--primary);
+}
+
+.price span {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--light-gray);
+  font-weight: normal;
+}
+
+.card-features {
+  list-style: none;
+  margin-bottom: 30px;
+  text-align: left;
+  flex-grow: 1; /* Занимаем все доступное пространство */
+}
+
+.card-features li {
+  margin-bottom: 10px;
+  padding-left: 25px;
+  position: relative;
+}
+
+.card-features i {
+  position: absolute;
+  left: 0;
+  top: 4px;
+  color: var(--primary);
+}
+
+/* Кнопка выбора */
+.price-card .btn {
+  margin-top: auto; /* Прижимаем кнопку к низу */
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+}
+
+.payment-methods {
+  margin-top: 50px;
+  text-align: center;
+}
+
+.payment-methods p {
+  margin-bottom: 15px;
+  color: var(--light-gray);
+}
+
+.methods {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  font-size: 2rem;
+  color: var(--light-gray);
+}
+
+.methods i:hover {
+  color: var(--primary);
+}
+
+/* FAQ */
+.faq-accordion {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.accordion-item {
+  margin-bottom: 15px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: rgba(30, 30, 30, 0.7);
+  border: 1px solid rgba(76, 175, 80, 0.1);
+}
+
+.accordion-btn {
+  width: 100%;
+  padding: 20px;
+  text-align: left;
+  background: transparent;
+  border: none;
+  color: var(--light);
+  font-size: 1.1rem;
+  font-weight: 500;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.accordion-btn:hover {
+  background: rgba(76, 175, 80, 0.1);
+}
+
+.accordion-btn i {
+  transition: transform 0.3s ease;
+}
+
+.accordion-btn.active i {
+  transform: rotate(180deg);
+}
+
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  padding: 0 20px;
+}
+
+.accordion-content p {
+  padding: 0 0 20px;
+  color: var(--light-gray);
+}
+
+/* CTA */
+.cta {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  text-align: center;
+  padding: 80px 0;
+}
+
+.cta h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.cta p {
+  font-size: 1.2rem;
+  max-width: 700px;
+  margin: 0 auto 2rem;
+  opacity: 0.9;
+}
+
+.cta-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+/* Футер */
+footer {
+  background: #000000;
+  padding: 80px 0 0;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 40px;
+  margin-bottom: 60px;
+}
+
+.footer-col h4 {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  color: var(--primary);
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.footer-col h4::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50px;
+  height: 2px;
+  background: var(--primary);
+}
+
+.footer-logo {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 1.5rem;
+  color: var(--primary);
+  margin-bottom: 20px;
+  display: inline-block;
+}
+
+.footer-about p {
+  color: var(--light-gray);
+  margin-bottom: 20px;
+}
+
+.footer-social {
+  display: flex;
+  gap: 15px;
+  
+}
+
+
+.footer-col ul {
+  list-style: none;
+}
+
+.footer-col li {
+  margin-bottom: 10px;
+}
+
+.footer-col a {
+  color: var(--light-gray);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  display: block;
+}
+
+.footer-col a:hover {
+  color: var(--primary);
+  transform: translateY(-3px); /* Смещение вверх */
+  transition: transform 0.3s ease; /* Плавное движение */
+}
+
+
+.footer-col a i {
+  margin-right: 8px;
+  color: var(--primary);
+  font-size: 0.8rem;
+}
+
+.footer-contacts i {
+  width: 20px;
+  margin-right: 10px;
+  color: var(--primary);
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding: 20px 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.copyright {
+  color: var(--light-gray);
+  font-size: 0.9rem;
+}
+
+.footer-links {
+  display: flex;
+  gap: 20px;
+}
+
+.footer-links a {
+  color: var(--light-gray);
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: var(--primary);
+}
+
+/* Частицы */
+#particles-js {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+/* Адаптивность */
+@media (max-width: 1200px) {
+  .hero-image {
+    display: none;
+  }
+  
+  .hero-content {
+    max-width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 2rem;
+  }
+  
+  .hero {
+    padding: 80px 0;
+  }
+  
+  section {
+    padding: 60px 0;
+  }
+  
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .pricing-cards {
+    grid-template-columns: 1fr;
+  }
+  
+  .cta-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .slide img {
+    height: 300px;
+  }
+}
+
+@media (max-width: 576px) {
+  .minecraft-text h1 {
+    font-size: 2rem;
+  }
+  
+  .hero-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .server-stats {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .tab-buttons {
+    flex-direction: column;
+  }
+}
+
+/* Rules Page */
+.rules-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  margin-top: 50px;
+}
+
+.rule-card {
+  background: rgba(30, 30, 30, 0.7);
+  background-image: url('../resources/pricing-card-gradient-bg.png');
+  background-size: cover;
+  background-position: center;
+  border-radius: 8px;
+  padding: 30px;
+  text-align: left;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(156, 77, 255, 0.1);
+  backdrop-filter: blur(5px);
+}
+
+.rule-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  border-color: rgba(156, 77, 255, 0.3);
+}
+
+.rule-icon {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 20px;
+  background: rgba(156, 77, 255, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: var(--primary);
+}
+
+.rule-card h3 {
+  font-size: 1.3rem;
+  margin-bottom: 15px;
+  color: var(--primary);
+}
+
+.rule-card ul {
+  list-style: none;
+  padding: 0;
+}
+
+.rule-card li {
+  margin-bottom: 10px;
+  padding-left: 20px;
+  position: relative;
+  color: var(--light-gray);
+}
+
+.rule-card li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--primary);
+}
+
+/* Gallery Section */
+.gallery-section {
+  padding: 80px 0;
+  background: var(--dark);
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-top: 50px;
+}
+
+.gallery-item {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  aspect-ratio: 16/9;
+  cursor: pointer;
+  background: rgba(30, 30, 30, 0.7);
+  border: 1px solid rgba(156, 77, 255, 0.1);
+  backdrop-filter: blur(5px);
+  transition: all 0.3s ease;
+}
+
+.gallery-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  border-color: rgba(156, 77, 255, 0.3);
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.gallery-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(10, 5, 17, 0.95), transparent);
+  padding: 30px 20px 20px;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.1);
+}
+
+.gallery-item:hover .gallery-overlay {
+  transform: translateY(0);
+}
+
+.gallery-overlay h3 {
+  color: var(--primary);
+  margin-bottom: 10px;
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+
+.gallery-overlay p {
+  color: var(--light-gray);
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+/* Shop Section */
+.shop-section {
+  padding: 80px 0;
+  background: var(--dark);
+}
+
+.shop-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-top: 50px;
+}
+
+.shop-item {
+  background: rgba(30, 30, 30, 0.7);
+  border-radius: 12px;
+  padding: 40px 30px;
+  text-align: center;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(156, 77, 255, 0.1);
+  backdrop-filter: blur(5px);
+  display: flex;
+  flex-direction: column;
+}
+
+.shop-item.featured {
+  transform: scale(1.05);
+  border-color: var(--primary);
+  box-shadow: 0 0 30px rgba(156, 77, 255, 0.2);
+}
+
+.shop-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  border-color: rgba(156, 77, 255, 0.3);
+}
+
+.shop-item-header {
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(156, 77, 255, 0.1);
+}
+
+.shop-item-header h3 {
+  font-size: 2rem;
+  color: var(--primary);
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+.shop-item .price {
+  font-size: 2.5rem;
+  color: var(--light);
+  font-weight: 700;
+}
+
+.shop-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 30px;
+  flex-grow: 1;
+}
+
+.shop-features li {
+  margin-bottom: 15px;
+  color: var(--light-gray);
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.shop-features i {
+  color: var(--primary);
+  font-size: 1.1rem;
+}
+
+.btn-block {
+  width: 100%;
+  padding: 15px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+@media (max-width: 768px) {
+  .gallery-grid,
+  .shop-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .shop-item.featured {
+    transform: none;
+  }
+
+  .gallery-item {
+    aspect-ratio: 4/3;
+  }
+}
